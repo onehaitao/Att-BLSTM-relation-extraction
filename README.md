@@ -36,4 +36,3 @@ The training log can be seen in `train.log` and the official evaluation results 
 
 
 ## Reference Link
-*
