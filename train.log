@@ -1,0 +1,83 @@
+--------------------------------------
+some config:
+data_dir = ./data
+output_dir = ./output
+embedding_path = ./embedding/glove.6B.100d.txt
+word_dim = 100
+model_name = Att_BLSTM
+mode = 1
+seed = 5782
+cuda = 0
+epoch = 30
+batch_size = 10
+lr = 1.0
+max_len = 100
+emb_dropout = 0.3
+lstm_dropout = 0.3
+linear_dropout = 0.5
+hidden_size = 100
+layers_num = 1
+L2_decay = 1e-05
+device = cuda:0
+model_dir = ./output/Att_BLSTM
+--------------------------------------
+start to load data ...
+finish!
+--------------------------------------
+Att_BLSTM(
+  (word_embedding): Embedding(400006, 100)
+  (lstm): LSTM(100, 100, batch_first=True, bidirectional=True)
+  (tanh): Tanh()
+  (emb_dropout): Dropout(p=0.3, inplace=False)
+  (lstm_dropout): Dropout(p=0.3, inplace=False)
+  (linear_dropout): Dropout(p=0.5, inplace=False)
+  (dense): Linear(in_features=100, out_features=19, bias=True)
+)
+traning model parameters:
+att_weight :  torch.Size([1, 100, 1])
+word_embedding.weight :  torch.Size([400006, 100])
+lstm.weight_ih_l0 :  torch.Size([400, 100])
+lstm.weight_hh_l0 :  torch.Size([400, 100])
+lstm.bias_ih_l0 :  torch.Size([400])
+lstm.bias_hh_l0 :  torch.Size([400])
+lstm.weight_ih_l0_reverse :  torch.Size([400, 100])
+lstm.weight_hh_l0_reverse :  torch.Size([400, 100])
+lstm.bias_ih_l0_reverse :  torch.Size([400])
+lstm.bias_hh_l0_reverse :  torch.Size([400])
+dense.weight :  torch.Size([19, 100])
+dense.bias :  torch.Size([19])
+--------------------------------------
+start to train the model ...
+[001] train_loss: 1.145 | dev_loss: 1.143 | micro f1 on dev: 0.7127 >>> save models!
+[002] train_loss: 0.901 | dev_loss: 0.935 | micro f1 on dev: 0.7574 >>> save models!
+[003] train_loss: 0.797 | dev_loss: 0.871 | micro f1 on dev: 0.7702 >>> save models!
+[004] train_loss: 0.690 | dev_loss: 0.830 | micro f1 on dev: 0.7857 >>> save models!
+[005] train_loss: 0.631 | dev_loss: 0.818 | micro f1 on dev: 0.7893 >>> save models!
+[006] train_loss: 0.578 | dev_loss: 0.771 | micro f1 on dev: 0.8046 >>> save models!
+[007] train_loss: 0.534 | dev_loss: 0.783 | micro f1 on dev: 0.8006 
+[008] train_loss: 0.484 | dev_loss: 0.761 | micro f1 on dev: 0.8124 >>> save models!
+[009] train_loss: 0.452 | dev_loss: 0.768 | micro f1 on dev: 0.8144 >>> save models!
+[010] train_loss: 0.417 | dev_loss: 0.760 | micro f1 on dev: 0.8139 
+[011] train_loss: 0.384 | dev_loss: 0.766 | micro f1 on dev: 0.8170 >>> save models!
+[012] train_loss: 0.364 | dev_loss: 0.786 | micro f1 on dev: 0.8118 
+[013] train_loss: 0.300 | dev_loss: 0.765 | micro f1 on dev: 0.8242 >>> save models!
+[014] train_loss: 0.277 | dev_loss: 0.801 | micro f1 on dev: 0.8153 
+[015] train_loss: 0.259 | dev_loss: 0.810 | micro f1 on dev: 0.8157 
+[016] train_loss: 0.247 | dev_loss: 0.822 | micro f1 on dev: 0.8313 >>> save models!
+[017] train_loss: 0.207 | dev_loss: 0.813 | micro f1 on dev: 0.8268 
+[018] train_loss: 0.169 | dev_loss: 0.828 | micro f1 on dev: 0.8248 
+[019] train_loss: 0.163 | dev_loss: 0.838 | micro f1 on dev: 0.8249 
+[020] train_loss: 0.154 | dev_loss: 0.877 | micro f1 on dev: 0.8246 
+[021] train_loss: 0.122 | dev_loss: 0.860 | micro f1 on dev: 0.8198 
+[022] train_loss: 0.120 | dev_loss: 0.892 | micro f1 on dev: 0.8290 
+[023] train_loss: 0.093 | dev_loss: 0.909 | micro f1 on dev: 0.8167 
+[024] train_loss: 0.078 | dev_loss: 0.953 | micro f1 on dev: 0.8130 
+[025] train_loss: 0.070 | dev_loss: 0.943 | micro f1 on dev: 0.8204 
+[026] train_loss: 0.082 | dev_loss: 1.026 | micro f1 on dev: 0.8143 
+[027] train_loss: 0.051 | dev_loss: 1.011 | micro f1 on dev: 0.8119 
+[028] train_loss: 0.042 | dev_loss: 1.008 | micro f1 on dev: 0.8178 
+[029] train_loss: 0.041 | dev_loss: 1.085 | micro f1 on dev: 0.8112 
+[030] train_loss: 0.029 | dev_loss: 1.048 | micro f1 on dev: 0.8168 
+--------------------------------------
+start test ...
+test_loss: 0.822 | micro f1 on test:  0.8313
