@@ -18,9 +18,8 @@ class Att_BLSTM(nn.Module):
         # hyper parameters and others
         self.max_len = config.max_len
         self.word_dim = config.word_dim
-
         self.hidden_size = config.hidden_size
-
+        self.layers_num = config.layers_num
         self.emb_dropout_value = config.emb_dropout
         self.lstm_dropout_value = config.lstm_dropout
         self.linear_dropout_value = config.linear_dropout
@@ -33,7 +32,7 @@ class Att_BLSTM(nn.Module):
         self.lstm = nn.LSTM(
             input_size=self.word_dim,
             hidden_size=self.hidden_size,
-            num_layers=1,
+            num_layers=self.layers_num,
             bias=True,
             batch_first=True,
             dropout=0,
@@ -73,8 +72,7 @@ class Att_BLSTM(nn.Module):
         att_score = att_score.masked_fill(mask.eq(0), float('-inf'))  # B*L*1
         att_weight = F.softmax(att_score, dim=1)  # B*L*1
 
-        reps = torch.bmm(h.transpose(1, 2), att_weight).squeeze(
-            dim=-1)  # B*H*L *  B*L*1 -> B*H*1 -> B*H
+        reps = torch.bmm(h.transpose(1, 2), att_weight).squeeze(dim=-1)  # B*H*L *  B*L*1 -> B*H*1 -> B*H
         reps = self.tanh(reps)  # B*reps
         return reps
 
@@ -83,9 +81,9 @@ class Att_BLSTM(nn.Module):
         mask = data[:, 1, :].view(-1, self.max_len)
         emb = self.word_embedding(token)  # B*L*word_dim
         emb = self.emb_dropout(emb)
-        h = self.lstm_layer(emb, mask)
+        h = self.lstm_layer(emb, mask)  # B*L*H
         h = self.lstm_dropout(h)
-        reps = self.attention_layer(h, mask)
+        reps = self.attention_layer(h, mask)  # B*reps
         reps = self.linear_dropout(reps)
         logits = self.dense(reps)
         return logits
