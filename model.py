@@ -73,7 +73,7 @@ class Att_BLSTM(nn.Module):
         att_weight = F.softmax(att_score, dim=1)  # B*L*1
 
         reps = torch.bmm(h.transpose(1, 2), att_weight).squeeze(dim=-1)  # B*H*L *  B*L*1 -> B*H*1 -> B*H
-        reps = self.tanh(reps)  # B*reps
+        reps = self.tanh(reps)  # B*H
         return reps
 
     def forward(self, data):
