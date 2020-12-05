@@ -16,12 +16,14 @@ from evaluate import Eval
 def print_result(predict_label, id2rel, start_idx=8001):
     with open('predicted_result.txt', 'w', encoding='utf-8') as fw:
         for i in range(0, predict_label.shape[0]):
-            fw.write('{}\t{}\n'.format(start_idx+i, id2rel[int(predict_label[i])]))
+            fw.write('{}\t{}\n'.format(
+                start_idx+i, id2rel[int(predict_label[i])]))
 
 
 def train(model, criterion, loader, config):
     train_loader, dev_loader, _ = loader
-    optimizer = optim.Adadelta(model.parameters(), lr=config.lr, weight_decay=config.L2_decay)
+    optimizer = optim.Adadelta(
+        model.parameters(), lr=config.lr, weight_decay=config.L2_decay)
 
     print(model)
     print('traning model parameters:')
@@ -32,7 +34,7 @@ def train(model, criterion, loader, config):
     print('start to train the model ...')
 
     eval_tool = Eval(config)
-    min_f1 = -float('inf')
+    max_f1 = -float('inf')
     for epoch in range(1, config.epoch+1):
         for step, (data, label) in enumerate(train_loader):
             model.train()
@@ -51,9 +53,10 @@ def train(model, criterion, loader, config):
 
         print('[%03d] train_loss: %.3f | dev_loss: %.3f | micro f1 on dev: %.4f'
               % (epoch, train_loss, dev_loss, f1), end=' ')
-        if f1 > min_f1:
-            min_f1 = f1
-            torch.save(model.state_dict(), os.path.join(config.model_dir, 'model.pkl'))
+        if f1 > max_f1:
+            max_f1 = f1
+            torch.save(model.state_dict(), os.path.join(
+                config.model_dir, 'model.pkl'))
             print('>>> save models!')
         else:
             print()
@@ -64,9 +67,11 @@ def test(model, criterion, loader, config):
     print('start test ...')
 
     _, _, test_loader = loader
-    model.load_state_dict(torch.load(os.path.join(config.model_dir, 'model.pkl')))
+    model.load_state_dict(torch.load(
+        os.path.join(config.model_dir, 'model.pkl')))
     eval_tool = Eval(config)
-    f1, test_loss, predict_label = eval_tool.evaluate(model, criterion, test_loader)
+    f1, test_loss, predict_label = eval_tool.evaluate(
+        model, criterion, test_loader)
     print('test_loss: %.3f | micro f1 on test:  %.4f' % (test_loss, f1))
     return predict_label
 
