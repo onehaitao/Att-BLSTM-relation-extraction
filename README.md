@@ -1,4 +1,6 @@
 # Att-BLSTM-relation-extraction
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/attention-based-bidirectional-long-short-term/relation-extraction-on-semeval-2010-task-8)](https://paperswithcode.com/sota/relation-extraction-on-semeval-2010-task-8?p=attention-based-bidirectional-long-short-term)
+
 Implementation of [Attention-Based Bidirectional Long Short-Term Memory Networks for Relation Classification](https://www.aclweb.org/anthology/P16-2034.pdf).
 
 ## Environment Requirements
